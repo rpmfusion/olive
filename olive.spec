@@ -7,7 +7,7 @@
 
 Name:           olive
 Version:        0.1.0
-Release:        0.3.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.4.%{gitdate}git%{shortcommit0}%{?dist}
 Summary:        A free non-linear video editor
 License:        GPLv3+
 Url:            https://www.olivevideoeditor.org
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %{_datadir}/%{name}-editor
 
 %changelog
+* Wed Aug 07 2019 Leigh Scott <leigh123linux@gmail.com> - 0.1.0-0.4.20190515git55c5b00
+- Rebuild for new ffmpeg version
+
 * Fri May 17 2019 Martin Gansser <martinkg@fedoraproject.org> - 0.1.0-0.3.20190515git55c5b00
 - Add a more meaningful description and summary
 
