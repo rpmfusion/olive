@@ -1,17 +1,29 @@
-# https://github.com/olive-editor/olive/commit/55c5b004875bec0e0b73789df561eef9d1395ebd
-%global commit0 55c5b004875bec0e0b73789df561eef9d1395ebd
+#For git snapshots, set to 0 to use release instead:
+%global usesnapshot 0
+%if 0%{?usesnapshot}
+# https://github.com/olive-editor/olive/commit/7975ef11abb3cd35f226c4e4e9e7aaf1a49fcd65
+%global commit0 7975ef11abb3cd35f226c4e4e9e7aaf1a49fcd65
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global gitdate 20190515
+%global gitdate 20191111
+%endif
 %global unique_name org.olivevideoeditor.Olive
 %global appl_name application-vnd.olive-project
 
 Name:           olive
-Version:        0.1.0
-Release:        0.4.%{gitdate}git%{shortcommit0}%{?dist}
+Version:        0.1.2
+%if 0%{?usesnapshot}
+Release:        0.5.%{gitdate}git%{shortcommit0}%{?dist}
+%else
+Release:        1%{?dist}
+%endif
 Summary:        A free non-linear video editor
 License:        GPLv3+
 Url:            https://www.olivevideoeditor.org
+%if 0%{?usesnapshot}
 Source0:        https://github.com/olive-editor/%{name}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+%else
+Source0:        https://github.com/olive-editor/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+%endif
 
 BuildRequires:  cmake3
 BuildRequires:  frei0r-devel
@@ -28,6 +40,8 @@ BuildRequires:  libappstream-glib
 BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qttranslations
 BuildRequires:  OpenColorIO-devel
+BuildRequires:  OpenImageIO-devel
+BuildRequires:  ilmbase-devel
 Requires:       hicolor-icon-theme
 
 %description
@@ -44,7 +58,11 @@ system. The wiki will contain new info once it is finalized, so stay tuned.
 A Feature list is a the moment not available.
 
 %prep
+%if 0%{?usesnapshot}
 %autosetup -n %{name}-%{commit0}
+%else
+%autosetup -n %{name}-%{version}
+%endif
 
 %build
 %cmake3 .
@@ -54,7 +72,9 @@ A Feature list is a the moment not available.
 %make_install INSTALL_ROOT=%{buildroot}
 rm -rf %buildroot/usr/share/icons/hicolor/1024x1024
 
-%find_lang %{name} --all-name --with-qt
+#%%find_lang %%{name} --all-name --with-qt
+find %{buildroot}%{_datadir}/%{name}-editor/ts -name "*.qm" | sed 's:'%{buildroot}'::
+s:.*/\([a-zA-Z]\{2\}\).qm:%lang(\1) \0:' > %{name}.lang
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
@@ -69,9 +89,13 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %{_datadir}/icons/hicolor/*/mimetypes/%{appl_name}.png
 %{_metainfodir}/%{unique_name}.appdata.xml
 %{_datadir}/mime/packages/%{unique_name}.xml
-%{_datadir}/%{name}-editor
+%{_datadir}/%%{name}-editor/effects
+#{_datadir}/%%{name}-editor
 
 %changelog
+* Fri Nov 15 2019 Martin Gansser <martinkg@fedoraproject.org> - 0.1.2-1
+- Update to 0.1.2-1
+
 * Wed Aug 07 2019 Leigh Scott <leigh123linux@gmail.com> - 0.1.0-0.4.20190515git55c5b00
 - Rebuild for new ffmpeg version
 
