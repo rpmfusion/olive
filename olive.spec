@@ -12,9 +12,9 @@
 Name:           olive
 Version:        0.1.2
 %if 0%{?usesnapshot}
-Release:        0.5.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.6.%{gitdate}git%{shortcommit0}%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        A free non-linear video editor
 License:        GPLv3+
@@ -93,6 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 #{_datadir}/%%{name}-editor
 
 %changelog
+* Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Fri Nov 15 2019 Martin Gansser <martinkg@fedoraproject.org> - 0.1.2-1
 - Update to 0.1.2-1
 
