@@ -64,6 +64,9 @@ A Feature list is a the moment not available.
 %autosetup -n %{name}-%{version}
 %endif
 
+# Override the pathetic ffmpeg test
+sed -i -e 's@3.4@@g' CMakeLists.txt
+
 %build
 %cmake3 .
 %make_build
