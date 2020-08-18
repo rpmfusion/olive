@@ -9,6 +9,8 @@
 %global unique_name org.olivevideoeditor.Olive
 %global appl_name application-vnd.olive-project
 
+%undefine __cmake_in_source_build
+
 Name:           olive
 Version:        0.1.2
 %if 0%{?usesnapshot}
@@ -68,11 +70,11 @@ A Feature list is a the moment not available.
 sed -i -e 's@3.4@@g' CMakeLists.txt
 
 %build
-%cmake3 .
-%make_build
+%cmake3
+%cmake3_build
 
 %install
-%make_install INSTALL_ROOT=%{buildroot}
+%cmake3_install
 rm -rf %buildroot/usr/share/icons/hicolor/1024x1024
 
 #%%find_lang %%{name} --all-name --with-qt
