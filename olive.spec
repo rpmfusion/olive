@@ -1,10 +1,10 @@
 #For git snapshots, set to 0 to use release instead:
 %global usesnapshot 0
 %if 0%{?usesnapshot}
-# https://github.com/olive-editor/olive/commit/7975ef11abb3cd35f226c4e4e9e7aaf1a49fcd65
-%global commit0 7975ef11abb3cd35f226c4e4e9e7aaf1a49fcd65
+# https://github.com/olive-editor/olive/commit/19eabf283062ed0d046b8ce8dee8a14af7c6de31
+%global commit0 19eabf283062ed0d046b8ce8dee8a14af7c6de31
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global gitdate 20191111
+%global gitdate 20201230
 %endif
 %global unique_name org.olivevideoeditor.Olive
 %global appl_name application-vnd.olive-project
@@ -14,7 +14,7 @@
 Name:           olive
 Version:        0.1.2
 %if 0%{?usesnapshot}
-Release:        0.9.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.1.%{gitdate}git%{shortcommit0}%{?dist}
 %else
 Release:        5%{?dist}
 %endif
@@ -26,6 +26,7 @@ Source0:        https://github.com/olive-editor/%{name}/archive/%{commit0}/%{nam
 %else
 Source0:        https://github.com/olive-editor/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
+Patch0:         %{name}-%{version}-qt5.15.patch
 
 BuildRequires:  cmake3
 BuildRequires:  frei0r-devel
@@ -63,7 +64,7 @@ A Feature list is a the moment not available.
 %if 0%{?usesnapshot}
 %autosetup -n %{name}-%{commit0}
 %else
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 %endif
 
 # Override the pathetic ffmpeg test
@@ -100,6 +101,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %changelog
 * Fri Jan  1 2021 Leigh Scott <leigh123linux@gmail.com> - 0.1.2-5
 - Rebuilt for new ffmpeg snapshot
+- Add olive-0.1.2-qt5.15.patch
 
 * Tue Aug 18 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
