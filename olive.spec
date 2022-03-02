@@ -1,10 +1,10 @@
 #For git snapshots, set to 0 to use release instead:
-%global usesnapshot 0
+%global usesnapshot 1
 %if 0%{?usesnapshot}
 # https://github.com/olive-editor/olive/commit/19eabf283062ed0d046b8ce8dee8a14af7c6de31
-%global commit0 19eabf283062ed0d046b8ce8dee8a14af7c6de31
+%global commit0 41a49c4880e21b11b08de94d2df1b227bf219fc6
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global gitdate 20201230
+%global gitdate 20220228
 %endif
 %global unique_name org.olivevideoeditor.Olive
 %global appl_name application-vnd.olive-project
@@ -14,9 +14,9 @@
 Name:           olive
 Version:        0.1.2
 %if 0%{?usesnapshot}
-Release:        0.4.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.5.%{gitdate}git%{shortcommit0}%{?dist}
 %else
-Release:        8%{?dist}
+Release:        9%{?dist}
 %endif
 Summary:        A free non-linear video editor
 License:        GPLv3+
@@ -26,7 +26,6 @@ Source0:        https://github.com/olive-editor/%{name}/archive/%{commit0}/%{nam
 %else
 Source0:        https://github.com/olive-editor/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
-Patch0:         %{name}-%{version}-qt5.15.patch
 
 BuildRequires:  cmake3
 BuildRequires:  frei0r-devel
@@ -45,6 +44,7 @@ BuildRequires:  qt5-qttranslations
 BuildRequires:  OpenColorIO-devel
 BuildRequires:  OpenImageIO-devel
 BuildRequires:  ilmbase-devel
+BuildRequires:  portaudio-devel
 Requires:       hicolor-icon-theme
 
 %description
@@ -62,13 +62,13 @@ A Feature list is a the moment not available.
 
 %prep
 %if 0%{?usesnapshot}
-%autosetup -n %{name}-%{commit0}
+%autosetup -p1 -n %{name}-%{commit0}
 %else
 %autosetup -p1 -n %{name}-%{version}
 %endif
 
 # Override the pathetic ffmpeg test
-sed -i -e 's@3.4@@g' CMakeLists.txt
+sed -i -e 's@3.0@@g' CMakeLists.txt
 
 %build
 %cmake3
@@ -86,7 +86,7 @@ s:.*/\([a-zA-Z]\{2\}\).qm:%lang(\1) \0:' > %{name}.lang
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name}.appdata.xml
 
-%files -f %{name}.lang
+%files
 %doc README.md
 %license LICENSE
 %{_bindir}/%{name}-editor
@@ -95,10 +95,13 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %{_datadir}/icons/hicolor/*/mimetypes/%{appl_name}.png
 %{_metainfodir}/%{unique_name}.appdata.xml
 %{_datadir}/mime/packages/%{unique_name}.xml
-%{_datadir}/%%{name}-editor/effects
-#{_datadir}/%%{name}-editor
+#%%{_datadir}/%%{name}-editor/effects
+#%%{_datadir}/%%{name}-editor
 
 %changelog
+* Wed Mar 02 2022 Sérgio Basto <sergio@serjux.com> - 0.1.2-0.5.20220228git41a49c4
+- New snapshot, ffmpeg 5 compatible
+
 * Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
