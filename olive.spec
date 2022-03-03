@@ -48,7 +48,7 @@ BuildRequires:  portaudio-devel
 Requires:       hicolor-icon-theme
 
 # ext/sse2neon.h:106:2: error: #error "You must enable NEON instructions (e.g. -mfpu=neon) to use SSE2NEON."
-ExcludeArch: %{arm}
+ExcludeArch: armv7hl
 
 %description
 %{name} is a free non-linear video editor aiming to provide a fully-featured
