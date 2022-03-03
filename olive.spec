@@ -14,9 +14,9 @@
 Name:           olive
 Version:        0.1.2
 %if 0%{?usesnapshot}
-Release:        0.5.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.6.%{gitdate}git%{shortcommit0}%{?dist}
 %else
-Release:        9%{?dist}
+Release:        10%{?dist}
 %endif
 Summary:        A free non-linear video editor
 License:        GPLv3+
@@ -102,6 +102,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 #%%{_datadir}/%%{name}-editor
 
 %changelog
+* Thu Mar 03 2022 Nicolas Chauvet <kwizart@gmail.com> - 0.1.2-0.6.20220228git41a49c4
+- Rebuilt
+
 * Wed Mar 02 2022 Sérgio Basto <sergio@serjux.com> - 0.1.2-0.5.20220228git41a49c4
 - New snapshot, ffmpeg 5 compatible
 
