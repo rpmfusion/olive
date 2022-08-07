@@ -14,9 +14,9 @@
 Name:           olive
 Version:        0.1.2
 %if 0%{?usesnapshot}
-Release:        0.6.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.7.%{gitdate}git%{shortcommit0}%{?dist}
 %else
-Release:        10%{?dist}
+Release:        11%{?dist}
 %endif
 Summary:        A free non-linear video editor
 License:        GPLv3+
@@ -102,6 +102,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 #%%{_datadir}/%%{name}-editor
 
 %changelog
+* Sun Aug 07 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.1.2-0.7.20220228git41a49c4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
+  5.1
+
 * Thu Mar 03 2022 Nicolas Chauvet <kwizart@gmail.com> - 0.1.2-0.6.20220228git41a49c4
 - Rebuilt
 
