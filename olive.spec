@@ -26,8 +26,9 @@ Source0:        https://github.com/olive-editor/%{name}/archive/%{commit0}/%{nam
 %else
 Source0:        https://github.com/olive-editor/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
+Patch0:         ffmpeg51.patch
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  frei0r-devel
 BuildRequires:  pkgconfig(Qt5Multimedia)
 BuildRequires:  pkgconfig(Qt5OpenGL)
@@ -74,11 +75,11 @@ A Feature list is a the moment not available.
 sed -i -e 's@3.0@@g' CMakeLists.txt
 
 %build
-%cmake3
-%cmake3_build
+%cmake -DUSE_WERROR=OFF
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 rm -rf %buildroot/usr/share/icons/hicolor/1024x1024
 
 #%%find_lang %%{name} --all-name --with-qt
