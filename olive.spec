@@ -1,10 +1,10 @@
 #For git snapshots, set to 0 to use release instead:
 %global usesnapshot 1
 %if 0%{?usesnapshot}
-# https://github.com/olive-editor/olive/commit/19eabf283062ed0d046b8ce8dee8a14af7c6de31
-%global commit0 41a49c4880e21b11b08de94d2df1b227bf219fc6
+# https://github.com/olive-editor/olive/commit/b169ad923cdf92d6d83c0add4a46fa7afd27858f
+%global commit0 b169ad923cdf92d6d83c0add4a46fa7afd27858f
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global gitdate 20220228
+%global gitdate 20220818
 %endif
 %global unique_name org.olivevideoeditor.Olive
 %global appl_name application-vnd.olive-project
@@ -14,19 +14,19 @@
 Name:           olive
 Version:        0.1.2
 %if 0%{?usesnapshot}
-Release:        0.7.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.8.%{gitdate}git%{shortcommit0}%{?dist}
 %else
-Release:        11%{?dist}
+Release:        12%{?dist}
 %endif
 Summary:        A free non-linear video editor
 License:        GPLv3+
 Url:            https://www.olivevideoeditor.org
 %if 0%{?usesnapshot}
-Source0:        https://github.com/olive-editor/%{name}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+Source0:        https://github.com/olive-editor/%{name}/archive/%{commit0}/%{name}-%{gitdate}git%{shortcommit0}.tar.gz
 %else
 Source0:        https://github.com/olive-editor/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
-Patch0:         ffmpeg51.patch
+#Patch0:         ffmpeg51.patch
 
 BuildRequires:  cmake
 BuildRequires:  frei0r-devel
@@ -103,6 +103,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 #%%{_datadir}/%%{name}-editor
 
 %changelog
+* Mon Aug 22 2022 Sérgio Basto <sergio@serjux.com> - 0.1.2-0.8.20220818gitb169ad9
+- Update snapshot to 20220818
+
 * Sun Aug 07 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.1.2-0.7.20220228git41a49c4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
   5.1
