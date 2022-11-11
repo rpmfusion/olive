@@ -14,9 +14,9 @@
 Name:           olive
 Version:        0.1.2
 %if 0%{?usesnapshot}
-Release:        0.8.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.9.%{gitdate}git%{shortcommit0}%{?dist}
 %else
-Release:        12%{?dist}
+Release:        13%{?dist}
 %endif
 Summary:        A free non-linear video editor
 License:        GPLv3+
@@ -103,6 +103,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 #%%{_datadir}/%%{name}-editor
 
 %changelog
+* Fri Nov 11 2022 Leigh Scott <leigh123linux@gmail.com> - 0.1.2-0.9.20220818gitb169ad9
+- rebuilt
+
 * Mon Aug 22 2022 Sérgio Basto <sergio@serjux.com> - 0.1.2-0.8.20220818gitb169ad9
 - Update snapshot to 20220818
 
