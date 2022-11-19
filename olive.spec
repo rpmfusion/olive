@@ -26,7 +26,6 @@ Source0:        https://github.com/olive-editor/%{name}/archive/%{commit0}/%{nam
 %else
 Source0:        https://github.com/olive-editor/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
-#Patch0:         ffmpeg51.patch
 
 BuildRequires:  cmake
 BuildRequires:  frei0r-devel
