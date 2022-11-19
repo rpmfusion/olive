@@ -1,10 +1,10 @@
 #For git snapshots, set to 0 to use release instead:
 %global usesnapshot 1
 %if 0%{?usesnapshot}
-# https://github.com/olive-editor/olive/commit/b169ad923cdf92d6d83c0add4a46fa7afd27858f
-%global commit0 b169ad923cdf92d6d83c0add4a46fa7afd27858f
+# https://github.com/olive-editor/olive/commit/5fce683e0d78c8db7dbd1604fab6a1899c085571
+%global commit0 5fce683e0d78c8db7dbd1604fab6a1899c085571
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global gitdate 20220818
+%global gitdate 20221118
 %endif
 %global unique_name org.olivevideoeditor.Olive
 %global appl_name application-vnd.olive-project
@@ -12,11 +12,11 @@
 %undefine __cmake_in_source_build
 
 Name:           olive
-Version:        0.1.2
+Version:        0.2.0
 %if 0%{?usesnapshot}
-Release:        0.9.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.10.%{gitdate}git%{shortcommit0}%{?dist}
 %else
-Release:        13%{?dist}
+Release:        15%{?dist}
 %endif
 Summary:        A free non-linear video editor
 License:        GPLv3+
@@ -103,6 +103,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 #%%{_datadir}/%%{name}-editor
 
 %changelog
+* Sat Nov 19 2022 Sérgio Basto <sergio@serjux.com> - 0.2.0-0.10.20221118git5fce683
+- Update to olive-20221118git5fce683
+
 * Fri Nov 11 2022 Leigh Scott <leigh123linux@gmail.com> - 0.1.2-0.9.20220818gitb169ad9
 - rebuilt
 
