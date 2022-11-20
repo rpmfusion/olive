@@ -26,6 +26,7 @@ Source0:        https://github.com/olive-editor/%{name}/archive/%{commit0}/%{nam
 %else
 Source0:        https://github.com/olive-editor/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
+Patch0:         armv7_build_fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  frei0r-devel
@@ -104,6 +105,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %changelog
 * Sat Nov 19 2022 Sérgio Basto <sergio@serjux.com> - 0.2.0-0.10.20221118git5fce683
 - Update to olive-20221118git5fce683
+- add armv7_build_fix.patch
 
 * Fri Nov 11 2022 Leigh Scott <leigh123linux@gmail.com> - 0.1.2-0.9.20220818gitb169ad9
 - rebuilt
