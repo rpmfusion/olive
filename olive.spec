@@ -14,9 +14,9 @@
 Name:           olive
 Version:        0.2.0
 %if 0%{?usesnapshot}
-Release:        0.11.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.12.%{gitdate}git%{shortcommit0}%{?dist}
 %else
-Release:        16%{?dist}
+Release:        17%{?dist}
 %endif
 Summary:        A free non-linear video editor
 License:        GPLv3+
@@ -103,6 +103,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 #%%{_datadir}/%%{name}-editor
 
 %changelog
+* Wed Mar 01 2023 Leigh Scott <leigh123linux@gmail.com> - 0.2.0-0.12.20221118git5fce683
+- Rebuild for new ffmpeg
+
 * Wed Feb 08 2023 Leigh Scott <leigh123linux@gmail.com> - 0.2.0-0.11.20221118git5fce683
 - rebuilt
 
